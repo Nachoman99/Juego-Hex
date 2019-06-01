@@ -145,6 +145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
