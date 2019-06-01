@@ -152,7 +152,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void confirmar(){
         JOptionPane.showMessageDialog(this, "Gracias por jugar");
     }
-
+    public static void main(String[] args) {
+        VentanaPrincipal principal = new VentanaPrincipal();
+        principal.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnRegistrarse;

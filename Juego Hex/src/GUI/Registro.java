@@ -139,10 +139,11 @@ public class Registro extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "La constraseña no puede tener una extensión de menos de 4 caracteres");
         } else if (tfContraseña.getPassword().length > 8) {
             JOptionPane.showMessageDialog(this, "La contraseña no puede tener más de 8 caracteres");
-        } else if (quitarNumero(Arrays.toString(tfContraseña.getPassword())) < 4 || quitarNumero(Arrays.toString(tfContraseña.getPassword())) > 8) {
-            JOptionPane.showMessageDialog(this, "La contraseña no puede tener una extensión menor que 4 o mayor que 8");
+//        } else if (quitarNumero(Arrays.toString(tfContraseña.getPassword())) < 4 || quitarNumero(Arrays.toString(tfContraseña.getPassword())) > 8) {
+//            JOptionPane.showMessageDialog(this, "La contraseña no puede tener una extensión menor que 4 o mayor que 8");
         }else{
             //hacer el procedimiento para registrar un usuario
+            JOptionPane.showMessageDialog(this, "Prueba exitosa");
         }
 
     }//GEN-LAST:event_btnRegistroActionPerformed
