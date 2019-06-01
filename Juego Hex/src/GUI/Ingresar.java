@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-//Coca leva
+//Pichudo pichudo
 package GUI;
 
 import java.awt.event.WindowAdapter;
