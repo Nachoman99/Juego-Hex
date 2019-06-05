@@ -5,9 +5,16 @@
  */
 package GUI;
 
+import Users.ReaderManagerText;
+import Users.User;
+import Users.UserList;
+import Users.WriterManagerText;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -20,6 +27,12 @@ import javax.swing.text.BadLocationException;
  */
 public class Registro extends javax.swing.JDialog {
 
+    UserList list = new UserList();
+    WriterManagerText writer = new WriterManagerText();
+    ReaderManagerText reader = new ReaderManagerText();
+    boolean ID = false;
+    boolean password = false;
+
     /**
      * Creates new form Registro
      */
@@ -27,6 +40,7 @@ public class Registro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+
         closeX();
     }
 
@@ -129,25 +143,79 @@ public class Registro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        if (tfID.getText().length() < 4) {
-            JOptionPane.showMessageDialog(this, "Por favor digite una ID de al menos 4 letras");
-        } else if (tfID.getText().length() > 6) {
-            JOptionPane.showMessageDialog(this, "No puede digitar una contraseña mayor de 6 letras");
-        } else if (quitarNumero(tfID.getText()) < 4 || quitarNumero(tfID.getText()) > 6) {
-            JOptionPane.showMessageDialog(this, "El ID no puede tener una extensión menor que 4 o mayor que 6");
-        }else if (tfContraseña.getPassword().length < 4) {
-            JOptionPane.showMessageDialog(this, "La constraseña no puede tener una extensión de menos de 4 caracteres");
-        } else if (tfContraseña.getPassword().length > 8) {
-            JOptionPane.showMessageDialog(this, "La contraseña no puede tener más de 8 caracteres");
-        } else if (quitarNumero(tfContraseña.getPassword().toString()) < 4 || quitarNumero(tfContraseña.getPassword().toString()) > 8) {
-            JOptionPane.showMessageDialog(this, "La contraseña no puede tener una extensión menor que 4 o mayor que 8");
-        }else{
-            //hacer el procedimiento para registrar un usuario
-            JOptionPane.showMessageDialog(this, "Prueba exitosa");
-        }
 
+//        verificarID();
+//        verificarContraseña();
+        if (ID != true && password != true) {
+            try {
+                if (!list.getUserList().containsUser(tfID.getText())) {
+                    User user = new User(tfID.getText(), tfContraseña.getPassword().toString());
+                    writer.writerUser(user);
+                    System.out.println("Correcto");
+                    this.dispose();
+                    FrameJuego frame = new FrameJuego();
+                    frame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "La id ya está en uso, por favor use otra");
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
+    private void verificarID() {
+        if (tfID.getText().length() < 4) {
+            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión menor a 4");
+            ID = true;
+        } else if (tfID.getText().length() > 6) {
+            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión mayor a 6");
+            ID = true;
+        } else if (quitarNumero(tfID.getText()) < 4) {
+            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión menor a 4(no se incluyen los números)");
+            ID = true;
+        } else if (quitarNumero(tfID.getText()) > 6) {
+            JOptionPane.showMessageDialog(null, "La id no puede tener más de 6 caracteres(Sin incluir números)");
+            ID = true;
+        } else {
+            ID = false;
+        }
+    }
+
+    private void verificarContraseña() {
+        if (tfContraseña.getPassword().length < 4 || tfContraseña.getPassword().length > 8) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede tener menos de 4 caracteres ni más de 8");
+            password = true;
+        } else if (quitarNumero(tfContraseña.getPassword().toString()) < 4) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede tener menos de 4 caracteres(Sin incluir números)");
+            password = true;
+        } else if (quitarNumero(tfContraseña.getPassword().toString()) > 8) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede tener más de 8 caracteres (Sin incluir números)");
+            password = true;
+        } else {
+            password = false;
+        }
+    }
+
+//    private boolean compararNombres() throws IOException {
+//        UserList list = reader.leer();
+//        for (int i = 0; i < list.getCount(); i++) {
+//            if (list.containsUser(tfID.getText())) {
+//                return true;
+//            }
+//        }
+//        return false;
+////        String lista = reader.leerUsers();
+////        for (int i = 0; i < lista.length(); i++) {
+////            if (lista.contentEquals(tfID.getText())) {
+////                return true;
+////            }
+////        }
+////        return false;
+//    }
+
+    
+    
     private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -168,6 +236,7 @@ public class Registro extends javax.swing.JDialog {
             char character = str.charAt(i);
             if (!Character.isLetter(character)) {
                 result = true;
+                System.out.println("Hola");
             } else {
                 result = false;
             }

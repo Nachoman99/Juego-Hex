@@ -7,6 +7,7 @@ package Users;
 public class User {
     
    private String name;
+   WriterManagerText writer = new WriterManagerText();
    private String password;
 
     public User() {
@@ -35,6 +36,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "name=" + name + ", password=" + password + '}';
+        return "," + name + "," + writer.getMD5(password) + "\n";
     }
 }

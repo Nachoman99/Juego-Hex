@@ -6,6 +6,8 @@
 package Users;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 /**
@@ -14,20 +16,47 @@ import java.util.TreeMap;
  */
 public class UserList {
  
-    private TreeMap<String, User> userList;
+    private final HashSet<User> userList = new HashSet<>();
+    private int count = 0;
 
     public UserList() {
-        userList = new TreeMap<>();
+
     }
 
-    public UserList(TreeMap<String, User> userList) {
-        this.userList = userList;
+   //}
+
+    public UserList getUserList() {
+        return this;
     }
-    
     
     public void addUser(User user){
-        userList.put(user.getName(), user);
+        ++count;
+        userList.add(user);
+    }
+
+    public int getCount() {
+        return count;
     }
     
+    @Override
+    public String toString() {
+        String str = "";
+        Iterator<User> iterador = userList.iterator();
+        while (iterador.hasNext()) {
+            User next = iterador.next();
+            str += next.toString();
+        }
+        return str;
+    }
     
+    public boolean containsUser(String userName){
+        Iterator<User> iterador = userList.iterator();
+        while (iterador.hasNext()) {
+            User next = iterador.next();
+            if (next.getName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
