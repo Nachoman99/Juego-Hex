@@ -5,21 +5,15 @@
  */
 package GUI;
 
+import Users.ManejoProperties;
 import Users.ReaderManagerText;
-import Users.User;
 import Users.UserList;
 import Users.WriterManagerText;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -28,8 +22,7 @@ import javax.swing.text.BadLocationException;
 public class Registro extends javax.swing.JDialog {
 
     UserList list = new UserList();
-    WriterManagerText writer = new WriterManagerText();
-    ReaderManagerText reader = new ReaderManagerText();
+    ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
 
@@ -148,9 +141,8 @@ public class Registro extends javax.swing.JDialog {
 //        verificarContraseña();
         if (ID != true && password != true) {
             try {
-                if (!list.getUserList().containsUser(tfID.getText())) {
-                    User user = new User(tfID.getText(), tfContraseña.getPassword().toString());
-                    writer.writerUser(user);
+                if (!prop.containsUser(tfID.getText())) {
+                    prop.writerUser(tfID.getText(), tfContraseña.getPassword().toString());
                     System.out.println("Correcto");
                     this.dispose();
                     FrameJuego frame = new FrameJuego();

@@ -18,26 +18,30 @@ import java.util.logging.Logger;
 public class Main {
     
     public static void main(String[] args) {
-        String str = "";
-        UserList list = new UserList();
         
-        WriterManagerText writer = new WriterManagerText();
-        ReaderManagerText reader = new ReaderManagerText();
-        ArrayList<String> array = new ArrayList<>();
-        try {
-            User user = new User("Juan", "123");
-            User user2 = new User("Pedro", "456");
-            writer.writerUser(user);
-            writer.writerUser(user2);
-            //writer.writerUser("asd", "Kevin");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
-            list = reader.leer();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        System.out.println(list.toString());
+        ManejoProperties manejo = new ManejoProperties();
+        System.out.println(manejo.encriptar2("Hola"));
+        System.out.println("1" + manejo.encriptar2("Hola"));
+//        String str = "";
+//        UserList list = new UserList();
+//        
+//        WriterManagerText writer = new WriterManagerText();
+//        ReaderManagerText reader = new ReaderManagerText();
+//        ArrayList<String> array = new ArrayList<>();
+////        try {
+////            User user = new User("Juan", "123");
+////            User user2 = new User("Pedro", "456");
+//////            writer.writerUser("Juan", "123");
+//////            writer.writerUser("Pedro", "345");
+////            //writer.writerUser("asd", "Kevin");
+////        } catch (IOException ex) {
+////            ex.printStackTrace();
+////        }
+//        try {
+//            str = reader.leerUsers();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        System.out.println(str);
     }
 }

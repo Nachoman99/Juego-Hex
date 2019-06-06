@@ -26,13 +26,29 @@ import java.util.logging.Logger;
 public class ReaderManagerText {
     
     private final static UserList list = new UserList();
-
+    private static Properties propertie;
+    private static FileInputStream input;
+    
     public ReaderManagerText() {
+        try {
+            input = new FileInputStream("Users.properties");
+            propertie = new Properties();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
     
+    public ReaderManagerText getReader(){
+        return this;
+    }
     
-    public boolean containsUser(String userName){
-        return list.getUserList().containsUser(userName);
+    public boolean containsUser(String userName) throws FileNotFoundException, IOException{
+        propertie.load(input);
+        if (propertie.getProperty(userName) != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 //    public ArrayList leerContraseñas() throws FileNotFoundException, IOException{
@@ -66,9 +82,8 @@ public class ReaderManagerText {
     public String leerUsers() throws FileNotFoundException, IOException{
         String user = "";
         ArrayList<String> nameList = new ArrayList<>();
-        Properties p = new Properties();
-        p.load(new FileInputStream("properties"));
-        Enumeration propiedades = p.elements();
+        propertie.load(input);
+        Enumeration propiedades = propertie.elements();
         while (propiedades.hasMoreElements()) {            
             user = (String) propiedades.nextElement();
             nameList.add(user);

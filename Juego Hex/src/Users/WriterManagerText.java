@@ -14,6 +14,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,10 +23,23 @@ import java.util.Properties;
  */
 public class WriterManagerText {
 
-    UserList list = new UserList();
+    private static Properties propertie;
+    private static FileOutputStream output;
+    private static FileInputStream input;
     
 
     public WriterManagerText() {
+        try {
+            propertie = new Properties();
+            output = new FileOutputStream("Users.properties");
+            input = new FileInputStream("Users.properties");
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public WriterManagerText getWriter(){
+        return this;
     }
     
     public String getMD5(String input) {
@@ -43,13 +58,19 @@ public class WriterManagerText {
         }
     }
 
-    public void writerUser(User user) throws FileNotFoundException, IOException {
-        list.getUserList().addUser(user);
-        File file = new File("properties");
-        FileOutputStream output = new FileOutputStream(file);
-        Properties p = new Properties();
-        p.load(new FileInputStream("properties"));
-        p.setProperty("Usuarios", list.getUserList().toString());
-        p.store(output, "Nuevas propiedades");
+    public void writerUser(String name, String password) throws FileNotFoundException, IOException {
+        propertie.load(input);
+        propertie.setProperty(name, getMD5(password));
+        propertie.store(output, null);
     }
+    
+//    public void writerUser(User user) throws FileNotFoundException, IOException {
+//        list.getUserList().addUser(user);
+//        File file = new File("properties");
+//        FileOutputStream output = new FileOutputStream(file);
+//        Properties p = new Properties();
+//        p.load(new FileInputStream("properties"));
+//        p.setProperty("Usuarios", list.getUserList().toString());
+//        p.store(output, "Nuevas propiedades");
+//    }
 }
