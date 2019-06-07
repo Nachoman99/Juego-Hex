@@ -144,7 +144,8 @@ public class Ingresar extends javax.swing.JDialog {
         if (!prop.verifyPassword(tfID.getText(), prop.encriptar2(tfPassword.getPassword().toString()))) {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         }else{
-            System.out.println("Correcto");
+            new FrameJuego().setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

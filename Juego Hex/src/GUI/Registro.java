@@ -12,6 +12,7 @@ import Users.WriterManagerText;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -137,8 +138,8 @@ public class Registro extends javax.swing.JDialog {
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
 
-//        verificarID();
-//        verificarContraseña();
+        verifyID();
+      //  verifyPassword();
         if (ID != true && password != true) {
             try {
                 if (!prop.containsUser(tfID.getText())) {
@@ -156,58 +157,36 @@ public class Registro extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
-    private void verificarID() {
+    private void verifyID() {
         if (tfID.getText().length() < 4) {
-            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión menor a 4");
+            JOptionPane.showMessageDialog(null, "La ID no puede tener una extensión menor a 4 caracteres");
             ID = true;
         } else if (tfID.getText().length() > 6) {
-            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión mayor a 6");
+            JOptionPane.showMessageDialog(null, "La ID no puede ser mayor a 6 caracteres");
             ID = true;
-        } else if (quitarNumero(tfID.getText()) < 4) {
-            JOptionPane.showMessageDialog(null, "La id no puede tener una extensión menor a 4(no se incluyen los números)");
+        } else if (!isLetter(tfID.getText())) {
+            JOptionPane.showMessageDialog(null, "No se pueden digitar caracteres especiales en el ID");
             ID = true;
-        } else if (quitarNumero(tfID.getText()) > 6) {
-            JOptionPane.showMessageDialog(null, "La id no puede tener más de 6 caracteres(Sin incluir números)");
-            ID = true;
-        } else {
+        }else{
             ID = false;
         }
     }
 
-    private void verificarContraseña() {
-        if (tfContraseña.getPassword().length < 4 || tfContraseña.getPassword().length > 8) {
-            JOptionPane.showMessageDialog(null, "La contraseña no puede tener menos de 4 caracteres ni más de 8");
+    private void verifyPassword(){
+        if (tfContraseña.getPassword().length < 4) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede ser menor a 4 caracteres");
             password = true;
-        } else if (quitarNumero(tfContraseña.getPassword().toString()) < 4) {
-            JOptionPane.showMessageDialog(null, "La contraseña no puede tener menos de 4 caracteres(Sin incluir números)");
+        } else if(tfContraseña.getPassword().length > 8){
+            JOptionPane.showMessageDialog(null, "La contraseña no puede ser mayor a 8 caracteres");
             password = true;
-        } else if (quitarNumero(tfContraseña.getPassword().toString()) > 8) {
-            JOptionPane.showMessageDialog(null, "La contraseña no puede tener más de 8 caracteres (Sin incluir números)");
+        }else if(!isLetter(tfContraseña.getPassword().toString())){
+            JOptionPane.showMessageDialog(null, "No se pueden digitar caracteres especiales en la contraseña");
             password = true;
-        } else {
+        }else{
             password = false;
         }
     }
 
-//    private boolean compararNombres() throws IOException {
-//        UserList list = reader.leer();
-//        for (int i = 0; i < list.getCount(); i++) {
-//            if (list.containsUser(tfID.getText())) {
-//                return true;
-//            }
-//        }
-//        return false;
-////        String lista = reader.leerUsers();
-////        for (int i = 0; i < lista.length(); i++) {
-////            if (lista.contentEquals(tfID.getText())) {
-////                return true;
-////            }
-////        }
-////        return false;
-//    }
-
-    
-    
     private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -221,31 +200,37 @@ public class Registro extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-
-    private boolean isNumeroOrCharacter(String str) {
-        boolean result = false;
+    
+    private boolean isNumber(String str){
+        int number;
+        try {
+            number = Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    private boolean isLetter(String str){
+        int count = 0;
         for (int i = 0; i < str.length(); i++) {
-            char character = str.charAt(i);
-            if (!Character.isLetter(character)) {
-                result = true;
-                System.out.println("Hola");
+            char c = str.charAt(i);
+            if (Character.isLetter(c)) {
+                ++count;
             } else {
-                result = false;
+                if (!isNumber(str)) {
+                    --count;
+                }else{
+                    ++count;
+                }
             }
         }
-        return result;
-    }
-
-    private int quitarNumero(String str) {
-        int count = str.length();
-        for (int i = 0; i < str.length(); i++) {
-            if (isNumeroOrCharacter(str)) {
-                count -= 1;
-            }
+        if (count == str.length()) {
+            return true;
+        }else{
+            return false;
         }
-        return count;
     }
-
     private void confirm() {
         VentanaPrincipal principal = new VentanaPrincipal();
         this.dispose();
