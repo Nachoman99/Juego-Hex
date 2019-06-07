@@ -7,7 +7,7 @@ package estructura;
  */
 public class Tablero {
     
-  private Punto Punto;
+   
    
    /**
    @roseuid 5CE9D4BC017C

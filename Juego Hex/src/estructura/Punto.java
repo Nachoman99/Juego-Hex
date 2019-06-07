@@ -11,9 +11,9 @@ package estructura;
  */
 public class Punto {
     
-      private int x;
+   private int x;
    private int y;
-   public Tablero theTablero;
+   //public Tablero theTablero;
    
    /**
    @roseuid 5CE9D5200197
