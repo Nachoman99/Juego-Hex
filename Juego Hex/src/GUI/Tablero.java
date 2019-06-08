@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Logic.Hexagon;
+import Logic.Logic;
 import estructura.HexagonalButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,26 +20,29 @@ public class Tablero extends javax.swing.JFrame {
     private HexagonalButton[][] buttons;
     private int indicadorJugador = 1;
     private int tamaño;
+    Logic logic;
+
     /**
      * Creates new form Tablero
      */
-     public Tablero(int tamaño) {
+    public Tablero(int tamaño) {
         initComponents();
+        logic = new Logic();
         this.tamaño = tamaño;
-         setResizable(false);
-         if(tamaño==7){
-             setBounds(0, 0, 700, 500);
-         }else if(tamaño==8){
-             setBounds(0, 0, 750, 600);
-         }else if(tamaño==9){
-              setBounds(0, 0, 800, 600);
-         }else if(tamaño==10){
-              setBounds(0, 0, 850, 600);
-         }else if(tamaño==11){
-              setBounds(0, 0, 940, 650);
-         }else if(tamaño==12){
-              setBounds(0, 0, 990, 670);
-         }
+        setResizable(false);
+        if (tamaño == 7) {
+            setBounds(0, 0, 700, 500);
+        } else if (tamaño == 8) {
+            setBounds(0, 0, 750, 600);
+        } else if (tamaño == 9) {
+            setBounds(0, 0, 800, 600);
+        } else if (tamaño == 10) {
+            setBounds(0, 0, 850, 600);
+        } else if (tamaño == 11) {
+            setBounds(0, 0, 940, 650);
+        } else if (tamaño == 12) {
+            setBounds(0, 0, 990, 670);
+        }
         buttons = new HexagonalButton[tamaño + 2][tamaño + 2];
         boardCreation(tamaño + 2);
         initializerActions(tamaño + 2);
@@ -50,9 +55,12 @@ public class Tablero extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         HexagonalButton clickedButton = (HexagonalButton) e.getSource();
-                        System.out.println("X= " + clickedButton.getRow() + "Y= " + clickedButton.getCol());
+                        Hexagon hexagon = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
+                        //System.out.println("X= " + clickedButton.getRow() + "Y= " + clickedButton.getCol());
                         if (indicadorJugador == 1) {
                             clickedButton.changeColor(1);
+                            logic.verificationPredecessorJ1(hexagon);
+                            logic.addHexagonTreeJ1(hexagon);
                             ++indicadorJugador;
                         } else if (indicadorJugador == 2) {
                             clickedButton.changeColor(2);
@@ -71,10 +79,10 @@ public class Tablero extends javax.swing.JFrame {
         int y = 30;
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                buttons[row][col] = new HexagonalButton(row-1, col-1);
+                buttons[row][col] = new HexagonalButton(row - 1, col - 1);
                 add(buttons[row][col]);
                 buttons[row][col].setBounds(x, y, 56, 56);
-                   
+
                 if (row == 0) {
                     buttons[0][col].colorCambiante(1);
                     buttons[0][col].setEnabled(false);
@@ -131,7 +139,7 @@ public class Tablero extends javax.swing.JFrame {
     public static void main(String[] args) {
         Tablero tablero = new Tablero(7);
         tablero.setVisible(true);
-    } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
