@@ -48,24 +48,30 @@ public class Tablero extends javax.swing.JFrame {
         initializerActions(tamaño + 2);
     }
 
-    private void initializerActions(int size) {
+        private void initializerActions(int size) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 buttons[i][j].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        logic.verifyWinPlayer2();
+                        logic.verifyWinPlayer1();
                         HexagonalButton clickedButton = (HexagonalButton) e.getSource();
                         Hexagon hexagon = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
-                        //System.out.println("X= " + clickedButton.getRow() + "Y= " + clickedButton.getCol());
                         if (indicadorJugador == 1) {
                             clickedButton.changeColor(1);
                             logic.verificationPredecessorJ1(hexagon);
                             logic.addHexagonTreeJ1(hexagon);
+                            logic.verifyWinPlayer1();
                             ++indicadorJugador;
                         } else if (indicadorJugador == 2) {
                             clickedButton.changeColor(2);
+                            logic.verificationPredecessorJ2(hexagon);
+                            logic.addHexagonTreeJ2(hexagon);
+                            logic.verifyWinPlayer2();
                             --indicadorJugador;
                         }
+                      
                         repaint();
                     }
                 });

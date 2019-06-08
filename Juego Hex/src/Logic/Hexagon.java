@@ -26,6 +26,14 @@ public class Hexagon implements ComponentInterface {
         listHexagons = new ArrayList<>();
     }
 
+    public ArrayList<ComponentInterface> getListHexagons() {
+        return listHexagons;
+    }
+
+    public void setListHexagons(ArrayList<ComponentInterface> listHexagons) {
+        this.listHexagons = listHexagons;
+    }
+
     public boolean isHexEspeciales() {
         return hexEspeciales;
     }
@@ -84,29 +92,19 @@ public class Hexagon implements ComponentInterface {
         String locations = "";
         Hexagon hexagon = null;
 
-        if (!isHasPredecessor()) {
+        locations += getLocation().getX() + ",";
 
-            locations += getLocation().getX() + ",";
-           // setUtilizado(true);
-        }
         if (!listHexagons.isEmpty()) {
 
             for (int i = 0; i < listHexagons.size(); i++) {
 
-              //  if (!isUtilizado()) {
-                    hexagon = (Hexagon) listHexagons.get(i);
-                    locations += hexagon.getLocation().getX() + ",";
-                 //   hexagon.setUtilizado(true);
-                    locations += listHexagons.get(i).listLocationX();
-               // }
-
+                hexagon = (Hexagon) listHexagons.get(i);
+                locations += hexagon.getLocation().getX() + ",";
             }
 
         }
         return locations;
     }
-    
-    
 
     @Override
     public String listLocationY() {
@@ -114,45 +112,23 @@ public class Hexagon implements ComponentInterface {
         String locations = "";
         Hexagon hexagon = null;
 
-        if (!isHasPredecessor()) {
+        locations += getLocation().getY() + ",";
 
-            locations += getLocation().getY() + ",";
-        }
         if (!listHexagons.isEmpty()) {
 
             for (int i = 0; i < listHexagons.size(); i++) {
 
                 hexagon = (Hexagon) listHexagons.get(i);
                 locations += hexagon.getLocation().getY() + ",";
-                locations += listHexagons.get(i).listLocationY();
             }
-        }
 
+        }
         return locations;
     }
 
     @Override
     public String toString() {
         return "Hexagon{" + "player=" + player + ", location=" + location.toString() + ", hasPredecessor=" + hasPredecessor + ", listHexagons=" + listHexagons + '}';
-    }
-
-    public String infoDescendant() {
-
-        return "D: " + location.toString() + " , hasPredecessor=" + hasPredecessor + "\n";
-    }
-
-    public String toStringDescedant() {
-
-        Hexagon hexagon = null;
-        String info = "";
-
-        for (int i = 0; i < listHexagons.size(); i++) {
-
-            hexagon = (Hexagon) listHexagons.get(i);
-            info += hexagon.infoDescendant();
-        }
-
-        return "P: " + location.toString() + " , hasPredecessor=" + hasPredecessor + ", List Hex:\n" + info;
     }
 
 }
