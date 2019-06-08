@@ -1,5 +1,6 @@
 package Logic;
 
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -31,87 +32,135 @@ public class Logic {
 
     }
 
-    public void verificationPredecessorJ1(ComponentInterface hegagonV) {
+    public void verificationPredecessor(ComponentInterface hegagonV, int indicadorJugador) {
 
+        ArrayList<ComponentInterface> listCabezasVerification = new ArrayList<ComponentInterface>();
         Hexagon hexagonVerification = (Hexagon) hegagonV;
+        Hexagon hexagonCabeza = null;
         boolean isCabeza = false;
         boolean isLegitimateSon = false;
 
-        if (hexagonVerification.getLocation().getX() == 0) {
-            listHexagonsCabezasJ1.add(hexagonVerification);
-            isCabeza = true;
-        }
+        if (indicadorJugador == 1) {
 
-        if (!listHexagonsCabezasJ1.isEmpty() && isCabeza == false) {
+            if (hexagonVerification.getLocation().getX() == 0) {
+                listHexagonsCabezasJ1.add(hexagonVerification);
+                isCabeza = true;
+            }
 
-            Hexagon hexagonCabeza = null;
+            if (!listHexagonsCabezasJ1.isEmpty() && isCabeza == false) {
 
-            for (int i = 0; i < listHexagonsCabezasJ1.size(); i++) {
+                for (int i = 0; i < listHexagonsCabezasJ1.size(); i++) {
 
-                hexagonCabeza = (Hexagon) listHexagonsCabezasJ1.get(i);
+                    hexagonCabeza = (Hexagon) listHexagonsCabezasJ1.get(i);
 
-                if ((hexagonCabeza.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
+                    if ((hexagonCabeza.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
 
-                    if ((hexagonCabeza.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
+                        if ((hexagonCabeza.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
 
-                        hexagonCabeza.addHexagonDescendant(hegagonV);
-                        isLegitimateSon = true;
-                    } else if ((hexagonCabeza.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                            isLegitimateSon = true;
+                        } else if ((hexagonCabeza.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
 
-                        hexagonCabeza.addHexagonDescendant(hegagonV);
-                        isLegitimateSon = true;
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                            isLegitimateSon = true;
+                        }
+
+                    }
+
+                }
+            }
+
+            listCabezasVerification = listHexagonsCabezasJ1;
+        } else {
+
+            if (hexagonVerification.getLocation().getY() == 0) {
+                listHexagonsCabezasJ2.add(hexagonVerification);
+                isCabeza = true;
+            }
+
+            if (!listHexagonsCabezasJ2.isEmpty() && isCabeza == false) {
+
+                for (int i = 0; i < listHexagonsCabezasJ2.size(); i++) {
+
+                    hexagonCabeza = (Hexagon) listHexagonsCabezasJ2.get(i);
+
+                    if ((hexagonCabeza.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
+
+                        if ((hexagonCabeza.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                            isLegitimateSon = true;
+                        }
+
+                    } else if (hexagonCabeza.getLocation().getX() == hexagonVerification.getLocation().getX()) {
+
+                        if ((hexagonCabeza.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                            isLegitimateSon = true;
+                        }
+
+                    } else if ((hexagonCabeza.getLocation().getX() - 1) == (hexagonVerification.getLocation().getX())) {
+
+                        if ((hexagonCabeza.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                            isLegitimateSon = true;
+                        }
+
                     }
 
                 }
 
             }
 
-            if (!isLegitimateSon) {
+            listCabezasVerification = listHexagonsCabezasJ2;
+        }
 
-                Hexagon hexagonSon = null;
+        if (!isLegitimateSon && isCabeza == false) {
 
-                for (int j = 0; j < listHexagonsCabezasJ1.size(); j++) {
+            Hexagon hexagonSon = null;
 
-                    hexagonCabeza = (Hexagon) listHexagonsCabezasJ1.get(j);
+            for (int j = 0; j < listCabezasVerification.size(); j++) {
 
-                    for (int k = 0; k < hexagonCabeza.getListHexagons().size(); k++) {
+                hexagonCabeza = (Hexagon) listCabezasVerification.get(j);
 
-                        hexagonSon = (Hexagon) hexagonCabeza.getListHexagons().get(k);
+                for (int k = 0; k < hexagonCabeza.getListHexagons().size(); k++) {
 
-                        if ((hexagonSon.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
+                    hexagonSon = (Hexagon) hexagonCabeza.getListHexagons().get(k);
 
-                            if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
+                    if ((hexagonSon.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
 
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
+                        if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
 
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                        } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
 
-                        } else if (hexagonSon.getLocation().getX() == hexagonVerification.getLocation().getX()) {
-
-                            if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-
-                            } else if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
-
-                        } else if ((hexagonSon.getLocation().getX() - 1) == (hexagonVerification.getLocation().getX())) {
-
-                            if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
-
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
                         }
-                    }
 
+                    } else if (hexagonSon.getLocation().getX() == hexagonVerification.getLocation().getX()) {
+
+                        if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+
+                        } else if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                        }
+
+                    } else if ((hexagonSon.getLocation().getX() - 1) == (hexagonVerification.getLocation().getX())) {
+
+                        if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                        } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
+
+                            hexagonCabeza.addHexagonDescendant(hegagonV);
+                        }
+
+                    }
                 }
 
             }
@@ -120,19 +169,35 @@ public class Logic {
 
     }
 
-    public void updateTree1() {
+    public void updateTree(int indicadorJugador) {
 
-        if (!listHexagonsJ1.isEmpty()) {
+        ArrayList<ComponentInterface> listHexagonsVerification = new ArrayList<ComponentInterface>();
 
+        if (indicadorJugador == 1) {
+
+            listHexagonsVerification = listHexagonsJ1;
+        } else {
+
+            listHexagonsVerification = listHexagonsJ2;
+        }
+
+        if (!listHexagonsVerification.isEmpty()) {
+
+            boolean continuarBusqueda = true;
             Hexagon hexagon = null;
 
-            for (int i = 0; i < listHexagonsJ1.size(); i++) {
+            while (continuarBusqueda) {
 
-                hexagon = (Hexagon) listHexagonsJ1.get(i);
-                verificationPredecessorJ1(hexagon);
+                continuarBusqueda = false;
+                for (int i = 0; i < listHexagonsVerification.size(); i++) {
 
-                if (hexagon.isHasPredecessor()) {
-                    listHexagonsJ1.remove(hexagon);
+                    hexagon = (Hexagon) listHexagonsVerification.get(i);
+                    verificationPredecessor(hexagon, indicadorJugador);
+
+                    if (hexagon.isHasPredecessor()) {
+                        listHexagonsVerification.remove(hexagon);
+                        continuarBusqueda = true;
+                    }
                 }
             }
 
@@ -140,9 +205,19 @@ public class Logic {
 
     }
 
-    public void verifyWinPlayer1() {
+    public void verifyWinPlayer(int indicadorJugador) {
 
-        updateTree1();
+        updateTree(indicadorJugador);
+
+        ArrayList<ComponentInterface> listCabezasVerification = new ArrayList<ComponentInterface>();
+
+        if (indicadorJugador == 1) {
+
+            listCabezasVerification = listHexagonsCabezasJ1;
+        } else {
+
+            listCabezasVerification = listHexagonsCabezasJ2;
+        }
 
         String infoPredecessor = "";
         String indiceString = "";
@@ -152,12 +227,18 @@ public class Logic {
         boolean cumple = true;
         boolean verificationWin = false;
 
-        for (int k = 0; k < listHexagonsCabezasJ1.size(); k++) {
+        for (int k = 0; k < listCabezasVerification.size(); k++) {
 
             cumple = true;
             indice = 0;
-            hexagonActual = (Hexagon) listHexagonsCabezasJ1.get(k);
-            infoPredecessor = hexagonActual.listLocationX();
+            hexagonActual = (Hexagon) listCabezasVerification.get(k);
+
+            if (indicadorJugador == 1) {
+                infoPredecessor = hexagonActual.listLocationX();
+            } else {
+                infoPredecessor = hexagonActual.listLocationY();
+            }
+
             vec = infoPredecessor.split(",");
             while (cumple) {
 
@@ -182,8 +263,13 @@ public class Logic {
 
             if (verificationWin) {
 
-                JOptionPane.showMessageDialog(null, "Gano el rojo");
-                k = listHexagonsCabezasJ1.size();
+                if (indicadorJugador == 1) {
+                    JOptionPane.showMessageDialog(null, "Gano el rojo");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Gano el azul");
+                }
+
+                k = listCabezasVerification.size();
             }
 
         }
@@ -196,177 +282,6 @@ public class Logic {
 
         if (!hex.isHasPredecessor() && hex.getLocation().getY() != 0) {
             listHexagonsJ2.add(hexagon);
-        }
-
-    }
-
-    public void verificationPredecessorJ2(ComponentInterface hegagonV) {
-
-        Hexagon hexagonVerification = (Hexagon) hegagonV;
-        boolean isCabeza = false;
-        boolean isLegitimateSon = false;
-
-        if (hexagonVerification.getLocation().getY() == 0) {
-            listHexagonsCabezasJ2.add(hexagonVerification);
-            isCabeza = true;
-        }
-
-        if (!listHexagonsCabezasJ2.isEmpty() && isCabeza == false) {
-
-            Hexagon hexagonCabeza = null;
-
-            for (int i = 0; i < listHexagonsCabezasJ2.size(); i++) {
-
-                hexagonCabeza = (Hexagon) listHexagonsCabezasJ2.get(i);
-
-                if ((hexagonCabeza.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
-
-                    if ((hexagonCabeza.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
-
-                        hexagonCabeza.addHexagonDescendant(hegagonV);
-                        isLegitimateSon = true;
-                    }
-
-                } else if (hexagonCabeza.getLocation().getX() == hexagonVerification.getLocation().getX()) {
-
-                    if ((hexagonCabeza.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                        hexagonCabeza.addHexagonDescendant(hegagonV);
-                        isLegitimateSon = true;
-                    }
-
-                } else if ((hexagonCabeza.getLocation().getX() - 1) == (hexagonVerification.getLocation().getX())) {
-
-                    if ((hexagonCabeza.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                        hexagonCabeza.addHexagonDescendant(hegagonV);
-                        isLegitimateSon = true;
-                    }
-
-                }
-
-            }
-
-            if (!isLegitimateSon) {
-
-                Hexagon hexagonSon = null;
-
-                for (int j = 0; j < listHexagonsCabezasJ2.size(); j++) {
-
-                    hexagonCabeza = (Hexagon) listHexagonsCabezasJ2.get(j);
-
-                    for (int k = 0; k < hexagonCabeza.getListHexagons().size(); k++) {
-
-                        hexagonSon = (Hexagon) hexagonCabeza.getListHexagons().get(k);
-
-                        if ((hexagonSon.getLocation().getX() + 1) == (hexagonVerification.getLocation().getX())) {
-
-                            if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
-
-                        } else if (hexagonSon.getLocation().getX() == hexagonVerification.getLocation().getX()) {
-
-                            if ((hexagonSon.getLocation().getY() - 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-
-                            } else if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
-
-                        } else if ((hexagonSon.getLocation().getX() - 1) == (hexagonVerification.getLocation().getX())) {
-
-                            if ((hexagonSon.getLocation().getY() + 1) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            } else if ((hexagonSon.getLocation().getY()) == (hexagonVerification.getLocation().getY())) {
-
-                                hexagonCabeza.addHexagonDescendant(hegagonV);
-                            }
-
-                        }
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
-
-    public void updateTree2() {
-
-        if (!listHexagonsJ2.isEmpty()) {
-
-            Hexagon hexagon = null;
-
-            for (int i = 0; i < listHexagonsJ2.size(); i++) {
-
-                hexagon = (Hexagon) listHexagonsJ2.get(i);
-                verificationPredecessorJ2(hexagon);
-
-                if (hexagon.isHasPredecessor()) {
-                    listHexagonsJ2.remove(hexagon);
-                }
-            }
-
-        }
-
-    }
-
-    public void verifyWinPlayer2() {
-
-        updateTree2();
-
-        String infoPredecessor = "";
-        String indiceString = "";
-        Hexagon hexagonActual = null;
-        String vec[] = null;
-        int indice = 0;
-        boolean cumple = true;
-        boolean verificationWin = false;
-
-        for (int k = 0; k < listHexagonsCabezasJ2.size(); k++) {
-
-            cumple = true;
-            indice = 0;
-            hexagonActual = (Hexagon) listHexagonsCabezasJ2.get(k);
-            infoPredecessor = hexagonActual.listLocationY();
-            vec = infoPredecessor.split(",");
-            while (cumple) {
-
-                cumple = false;
-                indiceString = indice + "";
-                for (int i = 0; i < vec.length; i++) {
-
-                    if (vec[i].equals(indiceString)) {
-                        cumple = true;
-                        i = vec.length;
-
-                        if (indice == 6) {
-
-                            verificationWin = true;
-                            cumple = false;
-                        }
-                    }
-
-                }
-                indice++;
-            }
-
-            if (verificationWin) {
-
-                JOptionPane.showMessageDialog(null, "Gano el azul");
-                k = listHexagonsCabezasJ2.size();
-            }
-
         }
 
     }
