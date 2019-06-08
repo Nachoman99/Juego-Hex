@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package estructura;
 
+import GUI.*;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;

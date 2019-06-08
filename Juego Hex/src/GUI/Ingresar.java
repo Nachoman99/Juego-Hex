@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 //Pichudo pichudo
 package GUI;
 
 import Users.ManejoProperties;
+import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -20,9 +20,10 @@ import javax.swing.JOptionPane;
 public class Ingresar extends javax.swing.JDialog {
 
     ManejoProperties prop = new ManejoProperties();
-    
+
     /**
      * Creates new form Ingresar
+     *
      * @param parent
      * @param modal
      */
@@ -143,18 +144,36 @@ public class Ingresar extends javax.swing.JDialog {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         if (!prop.verifyPassword(tfID.getText(), prop.encriptar2(tfPassword.getPassword().toString()))) {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
-        }else{
-            new FrameJuego().setVisible(true);
+        } else {
             this.dispose();
+            sizeTablero();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void closeX(){
+    private void sizeTablero() {
+        boolean continu = false;
+        while (continu == false) {
+            try {
+                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
+                if (size < 7 || size > 12) {
+                    continu = false;
+                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
+                } else {
+                    continu = true;
+                    new Tablero(size).setVisible(true);
+                }
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
+            }
+        }
+    }
+
+    private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            addWindowListener(new WindowAdapter(){
+            addWindowListener(new WindowAdapter() {
                 @Override
-                public void windowClosing(WindowEvent e){
+                public void windowClosing(WindowEvent e) {
                     confirm();
                 }
             });
@@ -162,8 +181,8 @@ public class Ingresar extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
-    private void confirm(){
+
+    private void confirm() {
         VentanaPrincipal principal = new VentanaPrincipal();
         this.dispose();
         principal.setVisible(true);

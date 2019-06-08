@@ -5,10 +5,9 @@
  */
 package GUI;
 
-import java.awt.Color;
+import estructura.HexagonalButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 
 /**
  *
@@ -26,7 +25,6 @@ public class Tablero extends javax.swing.JFrame {
         initComponents();
         this.tamaño = tamaño;
          setResizable(false);
-         
          if(tamaño==7){
              setBounds(0, 0, 700, 500);
          }else if(tamaño==8){
@@ -40,7 +38,6 @@ public class Tablero extends javax.swing.JFrame {
          }else if(tamaño==12){
               setBounds(0, 0, 990, 670);
          }
-         
         buttons = new HexagonalButton[tamaño + 2][tamaño + 2];
         boardCreation(tamaño + 2);
         initializerActions(tamaño + 2);
@@ -94,8 +91,6 @@ public class Tablero extends javax.swing.JFrame {
                     buttons[row][(size - 1)].colorCambiante(2);
                     buttons[row][(size - 1)].setEnabled(false);
                 }
-   
-                
                 x += 45;
             }
             if (row == 0) {
@@ -108,10 +103,6 @@ public class Tablero extends javax.swing.JFrame {
         }
     }
 
-//    public JButton[][] getMatrizButt() {
-//
-//        return buttons;
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,42 +128,7 @@ public class Tablero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //
-                new Tablero(7).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

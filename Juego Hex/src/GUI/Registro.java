@@ -9,6 +9,7 @@ import Users.ManejoProperties;
 import Users.ReaderManagerText;
 import Users.UserList;
 import Users.WriterManagerText;
+import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -146,8 +147,7 @@ public class Registro extends javax.swing.JDialog {
                     prop.writerUser(tfID.getText(), tfContraseña.getPassword().toString());
                     System.out.println("Correcto");
                     this.dispose();
-                    FrameJuego frame = new FrameJuego();
-                    frame.setVisible(true);
+                    sizeTablero();
                 } else {
                     JOptionPane.showMessageDialog(null, "La id ya está en uso, por favor use otra");
                 }
@@ -157,6 +157,24 @@ public class Registro extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
+    private void sizeTablero() {
+        boolean continu = false;
+        while (continu == false) {
+            try {
+                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
+                if (size < 7 || size > 12) {
+                    continu = false;
+                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
+                } else {
+                    continu = true;
+                    new Tablero(size).setVisible(true);
+                }
+            } catch (HeadlessException | NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
+            }
+        }
+    }
+    
     private void verifyID() {
         if (tfID.getText().length() < 4) {
             JOptionPane.showMessageDialog(null, "La ID no puede tener una extensión menor a 4 caracteres");
