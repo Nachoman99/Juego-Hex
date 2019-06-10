@@ -10,6 +10,7 @@ import Users.ManejoProperties;
 import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -142,7 +143,7 @@ public class Ingresar extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        if (!prop.verifyPassword(tfID.getText(), prop.encriptar2(tfPassword.getPassword().toString()))) {
+        if (!prop.verifyPassword(tfID.getText(), prop.encriptar2(Arrays.toString(tfPassword.getPassword())))) {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         } else {
             this.dispose();

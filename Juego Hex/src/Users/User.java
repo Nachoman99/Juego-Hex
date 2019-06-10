@@ -7,8 +7,8 @@ package Users;
 public class User {
     
    private String name;
-   WriterManagerText writer = new WriterManagerText();
    private String password;
+   ManejoProperties propertie = new ManejoProperties();
 
     public User() {
     }
@@ -36,6 +36,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "," + name + "," + writer.getMD5(password) + "\n";
+        return "," + name + "," + propertie.encriptar2(password) + "\n";
     }
 }

@@ -7,7 +7,10 @@ package GUI;
 
 import Users.ManejoProperties;
 import Users.ReaderManagerText;
+import Users.User;
+import Users.UserFactory;
 import Users.UserList;
+import Users.Users;
 import Users.WriterManagerText;
 import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
@@ -144,8 +147,9 @@ public class Registro extends javax.swing.JDialog {
         if (ID != true && password != true) {
             try {
                 if (!prop.containsUser(tfID.getText())) {
-                    prop.writerUser(tfID.getText(), tfContraseña.getPassword().toString());
-                    System.out.println("Correcto");
+                    Users userFactory = new UserFactory();
+                    User user = userFactory.createUser(tfID.getText(), Arrays.toString(tfContraseña.getPassword()));
+                    prop.writerUser(user);
                     this.dispose();
                     sizeTablero();
                 } else {

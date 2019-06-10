@@ -50,11 +50,11 @@ public class ManejoProperties {
 //        }
 //    }
 
-    public void writerUser(String name, String password) throws FileNotFoundException, IOException {
+    public void writerUser(User user) throws FileNotFoundException, IOException {
         output = new FileOutputStream("Users.properties");
         input = new FileInputStream("Users.properties");
         propertie.load(input);
-        propertie.setProperty(name, encriptar2(password));
+        propertie.setProperty(user.getName(), encriptar2(user.getPassword()));
         propertie.store(output, null);
     }
 
