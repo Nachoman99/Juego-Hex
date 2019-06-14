@@ -31,7 +31,8 @@ public class Registro extends javax.swing.JDialog {
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
-    private int sizeGame;
+    //private int sizeGame;
+    private SizeTablero size = new SizeTablero();
     /**
      * Creates new form Registro
      */
@@ -151,7 +152,7 @@ public class Registro extends javax.swing.JDialog {
                     User user = userFactory.createUser(tfID.getText(), Arrays.toString(tfContraseña.getPassword()));
                     prop.writerUser(user);
                     this.dispose();
-                    sizeTablero();
+                    size.getSizeTablero();
                 } else {
                     JOptionPane.showMessageDialog(null, "La id ya está en uso, por favor use otra");
                 }
@@ -161,33 +162,33 @@ public class Registro extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnRegistroActionPerformed
 
-    private void sizeTablero() {
-        boolean continu = false;
-        while (continu == false) {
-            try {
-                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
-                if (size < 7 || size > 12) {
-                    continu = false;
-                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
-                } else {
-                    continu = true;
-                    this.sizeGame=size;
-                    //new Tablero(size).setVisible(true);
-                }
-            } catch (HeadlessException | NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
-            }
-        }
-    }
+//    private void sizeTablero() {
+//        boolean continu = false;
+//        while (continu == false) {
+//            try {
+//                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
+//                if (size < 7 || size > 12) {
+//                    continu = false;
+//                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
+//                } else {
+//                    continu = true;
+//                    this.sizeGame=size;
+//                    //new Tablero(size).setVisible(true);
+//                }
+//            } catch (HeadlessException | NumberFormatException e) {
+//                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
+//            }
+//        }
+//    }
 
     
-    public int getSizeGame() {
-        return sizeGame;
-    }
-
-    public void setSizeGame(int sizeGame) {
-        this.sizeGame = sizeGame;
-    }
+//    public int getSizeGame() {
+//        return sizeGame;
+//    }
+//
+//    public void setSizeGame(int sizeGame) {
+//        this.sizeGame = sizeGame;
+//    }
 
     
     private void verifyID() {

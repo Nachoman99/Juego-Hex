@@ -5,9 +5,7 @@
  */
 package estructura;
 
-import GUI.*;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Polygon;
@@ -36,7 +34,6 @@ public class HexagonalButton extends JButton {
         this.setFocusPainted(false);
         this.setBorderPainted(false);
         this.setPreferredSize(new Dimension(WIDTH, LENGTH));
-
     }
 
     @Override

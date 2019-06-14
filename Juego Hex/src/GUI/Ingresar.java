@@ -21,7 +21,9 @@ import javax.swing.JOptionPane;
 public class Ingresar extends javax.swing.JDialog {
 
     ManejoProperties prop = new ManejoProperties();
-    private int sizeGame;
+    private SizeTablero size = new SizeTablero();
+//    private int sizeGame;
+
     /**
      * Creates new form Ingresar
      *
@@ -147,39 +149,37 @@ public class Ingresar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         } else {
             this.dispose();
-            sizeTablero();
+            size.getSizeTablero();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void sizeTablero() {
-        boolean continu = false;
-        while (continu == false) {
-            try {
-                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
-                if (size < 7 || size > 12) {
-                    continu = false;
-                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
-                } else {
-                    continu = true;
-                    this.sizeGame=size;
-                    //new Tablero(size).setVisible(true);
-                }
-            } catch (HeadlessException | NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
-            }
-        }
-    }
+//    private void sizeTablero() {
+//        boolean continu = false;
+//        while (continu == false) {
+//            try {
+//                int size = Integer.parseInt(JOptionPane.showInputDialog("Digite el tamaño del tablero"));
+//                if (size < 7 || size > 12) {
+//                    continu = false;
+//                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
+//                } else {
+//                    continu = true;
+//                    this.sizeGame = size;
+//                    //new Tablero(size).setVisible(true);
+//                }
+//            } catch (HeadlessException | NumberFormatException e) {
+//                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
+//            }
+//        }
+//    }
+//
+//    public int getSizeGame() {
+//        return sizeGame;
+//    }
+//
+//    public void setSizeGame(int sizeGame) {
+//        this.sizeGame = sizeGame;
+//    }
 
-    public int getSizeGame() {
-        return sizeGame;
-    }
-
-    public void setSizeGame(int sizeGame) {
-        this.sizeGame = sizeGame;
-    }
-
-    
-    
     private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
