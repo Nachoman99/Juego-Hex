@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JDialog {
 
-    private static boolean iniciarEspera = false;
+    private static boolean iniciarEspera;
     UserList list = new UserList();
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;

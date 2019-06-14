@@ -1,10 +1,12 @@
 package estructura;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Kevin Trejos
  */
-public class Punto {
+public class Punto implements Serializable{
 
     private int x;
     private int y;

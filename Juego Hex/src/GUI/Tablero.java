@@ -7,28 +7,34 @@ package GUI;
 
 import Logic.Hexagon;
 import Logic.Logic;
+import Sockets.LogicThread;
+import Sockets.Server;
 import estructura.HexagonalButton;
-import estructura.Punto;
 import estructura.ObserverWinner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  *
  * @author Nacho
  */
-public class Tablero extends javax.swing.JDialog {
+public class Tablero extends javax.swing.JFrame {
 
     private HexagonalButton[][] buttons;
     private int indicadorJugador = 1;
     private int tamaño;
     Logic logic;
-    private Punto puntoActualizar;
+    private static Hexagon hexagonoActualizar;
+    private LogicThread connector;
+
     /**
      * Creates new form Tablero
      */
-    public Tablero(int tamaño) {
+    public Tablero(int tamaño, LogicThread conector) {
         initComponents();
+        this.setTitle("Jugador 1");
+        this.connector = conector;
         logic = new Logic();
         this.tamaño = tamaño;
         ObserverWinner.getInstance().setTamanio(this.tamaño);
@@ -51,6 +57,28 @@ public class Tablero extends javax.swing.JDialog {
         initializerActions(tamaño + 2);
     }
 
+    
+
+    public void updateButtons(int indicadorJugador, int x, int y) {
+         int indiceJugadorVerification = 0;
+        buttons[(x+1)][(y+1)].changeColor(indicadorJugador);
+        Hexagon hexagon = new Hexagon(indicadorJugador, x, y);
+        logic.verificationPredecessor(hexagon, indicadorJugador);
+        if (indicadorJugador == 1) {
+            indiceJugadorVerification = indicadorJugador;
+            logic.addHexagonTreeJ1(hexagon);
+            ++indicadorJugador;
+
+        } else if (indicadorJugador == 2) {
+            indiceJugadorVerification = indicadorJugador;
+            logic.addHexagonTreeJ2(hexagon);
+            --indicadorJugador;
+
+        }
+        ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
+        repaint();
+    }
+
     private void initializerActions(int size) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -62,18 +90,28 @@ public class Tablero extends javax.swing.JDialog {
                         Hexagon hexagon = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
                         logic.verificationPredecessor(hexagon, indicadorJugador);
 
+                        hexagonoActualizar = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
+
+                        try {
+                            connector.enviar(hexagonoActualizar);
+                        } catch (IOException p) {
+                            p.printStackTrace();
+                        } catch (ClassNotFoundException o) {
+                            o.printStackTrace();
+                        }
+
                         if (indicadorJugador == 1) {
                             clickedButton.changeColor(1);
                             indiceJugadorVerification = indicadorJugador;
                             logic.addHexagonTreeJ1(hexagon);
                             ++indicadorJugador;
-                            
+
                         } else if (indicadorJugador == 2) {
                             clickedButton.changeColor(2);
                             indiceJugadorVerification = indicadorJugador;
                             logic.addHexagonTreeJ2(hexagon);
                             --indicadorJugador;
-                            
+
                         }
 
                         ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
@@ -121,11 +159,6 @@ public class Tablero extends javax.swing.JDialog {
             y += 40;
         }
     }
-    
-    public void getPunto(Punto punto){
-        puntoActualizar=punto;
-    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

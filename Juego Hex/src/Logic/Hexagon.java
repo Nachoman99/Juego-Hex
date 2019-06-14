@@ -1,13 +1,14 @@
 package Logic;
 
 import estructura.Punto;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author cocau
  */
-public class Hexagon implements ComponentInterface {
+public class Hexagon implements ComponentInterface, Serializable{
 
     private int player;
     private Punto location;

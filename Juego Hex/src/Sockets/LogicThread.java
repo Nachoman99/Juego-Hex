@@ -1,8 +1,8 @@
 package Sockets;
 
-import GUI.SizeTablero;
 import GUI.Tablero;
 import GUI.VentanaPrincipal;
+import Logic.Hexagon;
 import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,10 +21,11 @@ public class LogicThread extends Thread {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Tablero tablero;
-
+    private boolean continuar=true;
+    
     public LogicThread(Socket connection) {
         this.connection = connection;
-        this.tablero = new Tablero(SizeTablero.getSizeTablero());
+        this.tablero = new Tablero(7,this);
         this.tablero.setVisible(true);
     }
 
@@ -32,13 +33,13 @@ public class LogicThread extends Thread {
     public void run() {
         try {
             getStreams();
-            while (mainWindow.isVisible()) {
-                processConnection();
+            while (continuar) {
+                recibir();
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LogicThread.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             closeConnection();
         }
@@ -49,12 +50,16 @@ public class LogicThread extends Thread {
         output.flush();
         input = new ObjectInputStream(connection.getInputStream());
     }
-
-    private void processConnection() throws IOException, ClassNotFoundException {
-        Point point = (Point) input.readObject();
         
-        Point pont = new Point(2, 2);
-        output.writeObject(pont);
+    public synchronized void enviar(Hexagon hexa)throws IOException, ClassNotFoundException {
+        output.writeObject(hexa);
+        //output.writeBoolean(continuar);no se como mandarlo
+    }
+    
+    private void recibir() throws IOException, ClassNotFoundException {
+        Hexagon hexa = (Hexagon) input.readObject();
+        tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
+     
     }
 
     private void closeConnection() {

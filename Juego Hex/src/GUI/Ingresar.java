@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Kevin Trejos
  */
 public class Ingresar extends javax.swing.JDialog {
-    private static boolean iniciarEspera=false;
+    private static boolean iniciarEspera;
     ManejoProperties prop = new ManejoProperties();
 //    private int sizeGame;
 

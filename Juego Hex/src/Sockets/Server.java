@@ -28,12 +28,13 @@ public class Server {
 
     public void runServer() {
         try {
-            this.principal = new VentanaPrincipal();
-            principal.setVisible(true);
-            while(!Ingresar.getIniciarEspera()&&!Registro.getIniciarEspera()){
-//                System.out.println("ingresar= "+Ingresar.getIniciarEspera());
-//                 System.out.println("registro= "+Registro.getIniciarEspera());
-            }
+//            this.principal = new VentanaPrincipal();
+//            principal.setVisible(true);
+//            while(!Ingresar.getIniciarEspera()&&!Registro.getIniciarEspera()){
+////                System.out.println("ingresar= "+Ingresar.getIniciarEspera());
+////                 System.out.println("registro= "+Registro.getIniciarEspera());
+//            }
+//            
             server = new ServerSocket(PORT);
             waitForConnection();
          
