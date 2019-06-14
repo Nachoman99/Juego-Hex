@@ -32,7 +32,6 @@ public class Registro extends javax.swing.JDialog {
     boolean ID = false;
     boolean password = false;
     //private int sizeGame;
-    private SizeTablero size = new SizeTablero();
     /**
      * Creates new form Registro
      */
@@ -152,7 +151,8 @@ public class Registro extends javax.swing.JDialog {
                     User user = userFactory.createUser(tfID.getText(), Arrays.toString(tfContraseña.getPassword()));
                     prop.writerUser(user);
                     this.dispose();
-                    size.getSizeTablero();
+                    //sizeTablero();
+//                    new Tablero(7).setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "La id ya está en uso, por favor use otra");
                 }
@@ -172,8 +172,7 @@ public class Registro extends javax.swing.JDialog {
 //                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
 //                } else {
 //                    continu = true;
-//                    this.sizeGame=size;
-//                    //new Tablero(size).setVisible(true);
+//                    new Tablero(size).setVisible(true);
 //                }
 //            } catch (HeadlessException | NumberFormatException e) {
 //                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");

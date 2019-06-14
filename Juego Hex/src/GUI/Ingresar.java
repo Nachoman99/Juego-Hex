@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 public class Ingresar extends javax.swing.JDialog {
 
     ManejoProperties prop = new ManejoProperties();
-    private SizeTablero size = new SizeTablero();
 //    private int sizeGame;
 
     /**
@@ -149,7 +148,7 @@ public class Ingresar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         } else {
             this.dispose();
-            size.getSizeTablero();
+            
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -163,8 +162,7 @@ public class Ingresar extends javax.swing.JDialog {
 //                    JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
 //                } else {
 //                    continu = true;
-//                    this.sizeGame = size;
-//                    //new Tablero(size).setVisible(true);
+//                    new Tablero(7).setVisible(true);
 //                }
 //            } catch (HeadlessException | NumberFormatException e) {
 //                JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
