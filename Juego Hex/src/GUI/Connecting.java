@@ -16,6 +16,7 @@ public class Connecting extends javax.swing.JPanel {
      */
     public Connecting() {
         initComponents();
+    
     }
 
     /**

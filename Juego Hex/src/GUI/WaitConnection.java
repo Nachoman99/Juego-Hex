@@ -17,6 +17,7 @@ public class WaitConnection extends javax.swing.JDialog {
     public WaitConnection(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**
