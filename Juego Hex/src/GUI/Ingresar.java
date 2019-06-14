@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class Ingresar extends javax.swing.JDialog {
 
     ManejoProperties prop = new ManejoProperties();
-
+    private int sizeGame;
     /**
      * Creates new form Ingresar
      *
@@ -161,7 +161,8 @@ public class Ingresar extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
                 } else {
                     continu = true;
-                    new Tablero(size).setVisible(true);
+                    this.sizeGame=size;
+                    //new Tablero(size).setVisible(true);
                 }
             } catch (HeadlessException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
@@ -169,6 +170,16 @@ public class Ingresar extends javax.swing.JDialog {
         }
     }
 
+    public int getSizeGame() {
+        return sizeGame;
+    }
+
+    public void setSizeGame(int sizeGame) {
+        this.sizeGame = sizeGame;
+    }
+
+    
+    
     private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

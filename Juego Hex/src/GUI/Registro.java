@@ -31,7 +31,7 @@ public class Registro extends javax.swing.JDialog {
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
-
+    private int sizeGame;
     /**
      * Creates new form Registro
      */
@@ -171,7 +171,8 @@ public class Registro extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Sólo se pueden digitar números entre 7 y 12");
                 } else {
                     continu = true;
-                    new Tablero(size).setVisible(true);
+                    this.sizeGame=size;
+                    //new Tablero(size).setVisible(true);
                 }
             } catch (HeadlessException | NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor digite sólo números");
@@ -179,6 +180,16 @@ public class Registro extends javax.swing.JDialog {
         }
     }
 
+    
+    public int getSizeGame() {
+        return sizeGame;
+    }
+
+    public void setSizeGame(int sizeGame) {
+        this.sizeGame = sizeGame;
+    }
+
+    
     private void verifyID() {
         if (tfID.getText().length() < 4) {
             JOptionPane.showMessageDialog(this, "La ID no puede tener una extensión menor a 4 caracteres");

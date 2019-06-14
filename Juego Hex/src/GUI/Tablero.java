@@ -8,6 +8,7 @@ package GUI;
 import Logic.Hexagon;
 import Logic.Logic;
 import estructura.HexagonalButton;
+import estructura.Punto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,7 +22,7 @@ public class Tablero extends javax.swing.JFrame {
     private int indicadorJugador = 1;
     private int tamaño;
     Logic logic;
-
+    private Punto puntoActualizar;
     /**
      * Creates new form Tablero
      */
@@ -118,6 +119,11 @@ public class Tablero extends javax.swing.JFrame {
             y += 40;
         }
     }
+    
+    public void getPunto(Punto punto){
+        puntoActualizar=punto;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
