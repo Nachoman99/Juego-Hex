@@ -1,5 +1,7 @@
 package Sockets;
 
+import GUI.SizeTablero;
+import GUI.Tablero;
 import GUI.VentanaPrincipal;
 import java.awt.Point;
 import java.io.IOException;
@@ -18,12 +20,12 @@ public class LogicThread extends Thread {
     private Socket connection;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private VentanaPrincipal mainWindow;
+    private Tablero tablero;
 
     public LogicThread(Socket connection) {
         this.connection = connection;
-        this.mainWindow = new VentanaPrincipal();
-        this.mainWindow.setVisible(true);
+        this.tablero = new Tablero(SizeTablero.getSizeTablero());
+        this.tablero.setVisible(true);
     }
 
     @Override

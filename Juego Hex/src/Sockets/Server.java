@@ -6,6 +6,7 @@
 package Sockets;
 
 import GUI.VentanaPrincipal;
+import GUI.WaitConnection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,14 +21,15 @@ public class Server {
     private Socket connection;
     private final int PORT = 12345;
     private  VentanaPrincipal principal;
-    
+    private WaitConnection esperando;
     public void runServer() {
         try {
             this.principal = new VentanaPrincipal();
             principal.setVisible(true);
             server = new ServerSocket(PORT);
             waitForConnection();
-           //hilo
+            esperando.setVisible(false);
+            new LogicThread(connection).start();
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -38,9 +40,11 @@ public class Server {
     private void waitForConnection() throws IOException {
         System.out.println("Waiting for connection...\n");
         //JOptionPane.showMessageDialog(null, "Esperando a otro jugador...");
-        
+        if(!principal.isVisible()){
+           esperando.setVisible(true);
+        }
         connection = server.accept();
-        //setear invible cuando se conecte
+        
         System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
     }
     

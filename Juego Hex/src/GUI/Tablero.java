@@ -152,10 +152,10 @@ public class Tablero extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String[] args) {
-        Tablero tablero = new Tablero(7);
-        tablero.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        Tablero tablero = new Tablero(7);
+//        tablero.setVisible(true);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
