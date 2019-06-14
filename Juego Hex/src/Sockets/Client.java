@@ -47,6 +47,13 @@ public class Client {
     }
     
     private void closeConnection(){
-        
+        System.out.println("\nClosing connection");
+        try {
+            output.close();
+            input.close();
+            client.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

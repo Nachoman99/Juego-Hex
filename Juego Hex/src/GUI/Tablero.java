@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  *
  * @author Nacho
  */
-public class Tablero extends javax.swing.JFrame {
+public class Tablero extends javax.swing.JDialog {
 
     private HexagonalButton[][] buttons;
     private int indicadorJugador = 1;

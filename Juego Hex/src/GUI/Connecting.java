@@ -16,7 +16,8 @@ public class Connecting extends javax.swing.JPanel {
      */
     public Connecting() {
         initComponents();
-    
+        ConnectingThread thread = new ConnectingThread();
+        thread.start();
     }
 
     /**
@@ -30,27 +31,50 @@ public class Connecting extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setText("Conectando al servidor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
+    private class ConnectingThread extends Thread{
+
+        @Override
+        public void run() {
+            while (true) {                
+                try {
+                    jLabel1.setText("Conectando al servidor");
+                    this.sleep(1000);
+                    jLabel1.setText("Conectando al servidor.");
+                    this.sleep(1000);
+                    jLabel1.setText("Conectando al servidor..");
+                    this.sleep(1000);
+                    jLabel1.setText("Conectando al servidor...");
+                    this.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
