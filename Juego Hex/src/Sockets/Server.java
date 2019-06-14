@@ -5,6 +5,8 @@
  */
 package Sockets;
 
+import GUI.Ingresar;
+import GUI.Registro;
 import GUI.VentanaPrincipal;
 import GUI.WaitConnection;
 import java.io.IOException;
@@ -17,18 +19,24 @@ import javax.swing.JOptionPane;
  * @author Kevin Trejos
  */
 public class Server {
+
     private ServerSocket server;
     private Socket connection;
     private final int PORT = 12345;
-    private  VentanaPrincipal principal;
-    private WaitConnection esperando;
+    private VentanaPrincipal principal;
+    
+
     public void runServer() {
         try {
             this.principal = new VentanaPrincipal();
             principal.setVisible(true);
+            while(!Ingresar.getIniciarEspera()&&!Registro.getIniciarEspera()){
+//                System.out.println("ingresar= "+Ingresar.getIniciarEspera());
+//                 System.out.println("registro= "+Registro.getIniciarEspera());
+            }
             server = new ServerSocket(PORT);
             waitForConnection();
-            esperando.setVisible(false);
+         
             new LogicThread(connection).start();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -36,18 +44,15 @@ public class Server {
             closeServer();
         }
     }
-    
+
     private void waitForConnection() throws IOException {
-        System.out.println("Waiting for connection...\n");
-        //JOptionPane.showMessageDialog(null, "Esperando a otro jugador...");
-        if(!principal.isVisible()){
-           esperando.setVisible(true);
-        }
-        connection = server.accept();
+            System.out.println("Waiting for connection...\n");
+            connection = server.accept();
+            System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
+
         
-        System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
     }
-    
+
     private void closeServer() {
         System.out.println("\nTerminating server");
         try {

@@ -27,10 +27,12 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JDialog {
 
+    private static boolean iniciarEspera = false;
     UserList list = new UserList();
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
+
     //private int sizeGame;
     /**
      * Creates new form Registro
@@ -41,6 +43,10 @@ public class Registro extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
 
         closeX();
+    }
+
+    public static boolean getIniciarEspera() {
+        return iniciarEspera;
     }
 
     /**
@@ -150,6 +156,7 @@ public class Registro extends javax.swing.JDialog {
                     Users userFactory = new UserFactory();
                     User user = userFactory.createUser(tfID.getText(), Arrays.toString(tfContraseña.getPassword()));
                     prop.writerUser(user);
+                    iniciarEspera=false;
                     this.dispose();
                     //sizeTablero();
 //                    new Tablero(7).setVisible(true);
@@ -179,8 +186,6 @@ public class Registro extends javax.swing.JDialog {
 //            }
 //        }
 //    }
-
-    
 //    public int getSizeGame() {
 //        return sizeGame;
 //    }
@@ -188,8 +193,6 @@ public class Registro extends javax.swing.JDialog {
 //    public void setSizeGame(int sizeGame) {
 //        this.sizeGame = sizeGame;
 //    }
-
-    
     private void verifyID() {
         if (tfID.getText().length() < 4) {
             JOptionPane.showMessageDialog(this, "La ID no puede tener una extensión menor a 4 caracteres");

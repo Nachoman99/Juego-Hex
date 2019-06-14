@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Kevin Trejos
  */
 public class Ingresar extends javax.swing.JDialog {
-
+    private static boolean iniciarEspera=false;
     ManejoProperties prop = new ManejoProperties();
 //    private int sizeGame;
 
@@ -36,6 +36,13 @@ public class Ingresar extends javax.swing.JDialog {
         closeX();
     }
 
+    public static boolean getIniciarEspera() {
+        return iniciarEspera;
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,7 +146,7 @@ public class Ingresar extends javax.swing.JDialog {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         VentanaPrincipal principal = new VentanaPrincipal();
-        this.dispose();
+        this.setVisible(false);
         principal.setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
@@ -147,8 +154,8 @@ public class Ingresar extends javax.swing.JDialog {
         if (!prop.verifyPassword(tfID.getText(), prop.encriptar2(Arrays.toString(tfPassword.getPassword())))) {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         } else {
-            this.dispose();
-            
+            this.setVisible(false);
+            iniciarEspera=true;
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

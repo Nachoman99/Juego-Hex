@@ -125,13 +125,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         Registro registro = new Registro(this, true);
-        this.dispose();
+        this.setVisible(false);
         registro.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         Ingresar ingresar = new Ingresar(this,true);
-        this.dispose();
+        this.setVisible(false);
         ingresar.setVisible(true);
     }//GEN-LAST:event_btnIngresarActionPerformed
 
