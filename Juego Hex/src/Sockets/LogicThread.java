@@ -1,5 +1,7 @@
 package Sockets;
 
+import GUI.Ingresar;
+import GUI.Registro;
 import GUI.Tablero;
 import GUI.VentanaPrincipal;
 import Logic.Hexagon;
@@ -33,6 +35,8 @@ public class LogicThread extends Thread {
     public void run() {
         try {
             getStreams();
+            Ingresar.setWaitingConnection(false);
+            Registro.setWaitingConnection(false);
             while (continuar) {
                 recibir();
             }
