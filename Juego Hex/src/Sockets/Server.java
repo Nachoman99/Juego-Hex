@@ -24,20 +24,25 @@ public class Server {
     private Socket connection;
     private final int PORT = 12345;
     private VentanaPrincipal principal;
-    
+    private WaitConnection wait;
+    private boolean ingresar = false;
+    private boolean registro = false;
 
     public void runServer() {
         try {
-//            this.principal = new VentanaPrincipal();
-//            principal.setVisible(true);
-//            while(!Ingresar.getIniciarEspera()&&!Registro.getIniciarEspera()){
-////                System.out.println("ingresar= "+Ingresar.getIniciarEspera());
-////                 System.out.println("registro= "+Registro.getIniciarEspera());
-//            }
-//            
+            this.principal = new VentanaPrincipal();
+            principal.setVisible(true);
             server = new ServerSocket(PORT);
+//            while (true) {
+//                if (!ingresar && !registro) {
+//                    ingresar = Ingresar.getIniciarEspera();
+//                    registro = Registro.getIniciarEspera();
+//                } else {
+//                    
+                    
+//                }
+//            }
             waitForConnection();
-         
             new LogicThread(connection).start();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -47,11 +52,12 @@ public class Server {
     }
 
     private void waitForConnection() throws IOException {
-            System.out.println("Waiting for connection...\n");
-            connection = server.accept();
-            System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
+        System.out.println("Waiting for connection...\n");
+        Ingresar.setWaitingConnection(true);
+        Registro.setWaitingConnection(true);
+        connection = server.accept();
+        System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
 
-        
     }
 
     private void closeServer() {

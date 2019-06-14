@@ -27,11 +27,13 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JDialog {
 
-    private static boolean iniciarEspera;
+    private static boolean waitingConnection = false;
+    private static boolean iniciarEspera = false;
     UserList list = new UserList();
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
+    private WaitConnection wait = new WaitConnection(null, true);
 
     //private int sizeGame;
     /**
@@ -146,7 +148,15 @@ public class Registro extends javax.swing.JDialog {
         this.dispose();
         principal.setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
+                                           
+    public static boolean isWaitingConnection() {
+        return waitingConnection;
+    }
 
+    public static void setWaitingConnection(boolean waitingConnection) {
+        Registro.waitingConnection = waitingConnection;
+    }
+    
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         verifyID();
         verifyPassword();
@@ -158,6 +168,12 @@ public class Registro extends javax.swing.JDialog {
                     prop.writerUser(user);
                     iniciarEspera=false;
                     this.dispose();
+                    if (waitingConnection) {
+                        wait.setVisible(true);
+                        //waitingConnection = true;
+                    }else if (!waitingConnection) {
+                        wait.setVisible(false);
+                    }
                     //sizeTablero();
 //                    new Tablero(7).setVisible(true);
                 } else {

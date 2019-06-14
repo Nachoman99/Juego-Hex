@@ -19,8 +19,11 @@ import javax.swing.JOptionPane;
  * @author Kevin Trejos
  */
 public class Ingresar extends javax.swing.JDialog {
+
     private static boolean iniciarEspera;
     ManejoProperties prop = new ManejoProperties();
+    private static boolean waitingConnection = false;
+    private WaitConnection wait = new WaitConnection(null, true);
 //    private int sizeGame;
 
     /**
@@ -40,9 +43,6 @@ public class Ingresar extends javax.swing.JDialog {
         return iniciarEspera;
     }
 
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,10 +155,24 @@ public class Ingresar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "La contraseña o el nombre de usuario son incorrectos");
         } else {
             this.setVisible(false);
-            iniciarEspera=true;
+            iniciarEspera = true;
+            if (waitingConnection) {
+                wait.setVisible(true);
+                //waitingConnection = true;
+            } else if (!waitingConnection) {
+                wait.setVisible(false);
+            }
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    public static boolean isWaitingConnection() {
+        return waitingConnection;
+    }
+
+    public static void setWaitingConnection(boolean waitingConnection) {
+        Ingresar.waitingConnection = waitingConnection;
+    }
+    
 //    private void sizeTablero() {
 //        boolean continu = false;
 //        while (continu == false) {
@@ -184,7 +198,6 @@ public class Ingresar extends javax.swing.JDialog {
 //    public void setSizeGame(int sizeGame) {
 //        this.sizeGame = sizeGame;
 //    }
-
     private void closeX() {
         try {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -17,8 +17,9 @@ public class WaitConnection extends javax.swing.JDialog {
     public WaitConnection(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(parent);
-        WaitConnectionThread thread = new WaitConnectionThread();
+        WaitConnectionThread thread = new WaitConnectionThread(this);
         thread.start();
     }
 
@@ -108,6 +109,12 @@ public class WaitConnection extends javax.swing.JDialog {
     
     private class WaitConnectionThread extends Thread{
 
+        WaitConnection wait;
+        
+        public WaitConnectionThread(WaitConnection wait) {
+            this.wait = wait;
+        }
+        
         @Override
         public void run() {
             while (true) {                
@@ -120,6 +127,9 @@ public class WaitConnection extends javax.swing.JDialog {
                     this.sleep(1000);
                     jLabel2.setText("Esperando jugador...");
                     this.sleep(1000);
+                    if (!Ingresar.isWaitingConnection() || !Registro.isWaitingConnection()) {
+                        wait.dispose();
+                    }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
