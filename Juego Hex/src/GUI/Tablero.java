@@ -9,6 +9,7 @@ import Logic.Hexagon;
 import Logic.Logic;
 import estructura.HexagonalButton;
 import estructura.Punto;
+import estructura.ObserverWinner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +31,7 @@ public class Tablero extends javax.swing.JFrame {
         initComponents();
         logic = new Logic();
         this.tamaño = tamaño;
+        ObserverWinner.getInstance().setTamanio(this.tamaño);
         setResizable(false);
         if (tamaño == 7) {
             setBounds(0, 0, 700, 500);
@@ -74,7 +76,7 @@ public class Tablero extends javax.swing.JFrame {
                             
                         }
 
-                        logic.verifyWinPlayer(indiceJugadorVerification);
+                        ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
                         repaint();
                     }
                 });

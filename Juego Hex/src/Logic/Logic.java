@@ -9,16 +9,32 @@ import javax.swing.JOptionPane;
  */
 public class Logic {
 
-    private ArrayList<ComponentInterface> listHexagonsJ1;
-    private ArrayList<ComponentInterface> listHexagonsJ2;
-    private ArrayList<ComponentInterface> listHexagonsCabezasJ1;
-    private ArrayList<ComponentInterface> listHexagonsCabezasJ2;
+    private static ArrayList<ComponentInterface> listHexagonsJ1;
+    private static ArrayList<ComponentInterface> listHexagonsJ2;
+    private static ArrayList<ComponentInterface> listHexagonsCabezasJ1;
+    private static ArrayList<ComponentInterface> listHexagonsCabezasJ2;
 
     public Logic() {
         listHexagonsJ1 = new ArrayList<>();
         listHexagonsJ2 = new ArrayList<>();
         listHexagonsCabezasJ1 = new ArrayList<>();
         listHexagonsCabezasJ2 = new ArrayList<>();
+    }
+
+    public static ArrayList<ComponentInterface> getListHexagonsJ1() {
+        return listHexagonsJ1;
+    }
+
+    public static ArrayList<ComponentInterface> getListHexagonsJ2() {
+        return listHexagonsJ2;
+    }
+
+    public static ArrayList<ComponentInterface> getListHexagonsCabezasJ1() {
+        return listHexagonsCabezasJ1;
+    }
+
+    public static ArrayList<ComponentInterface> getListHexagonsCabezasJ2() {
+        return listHexagonsCabezasJ2;
     }
 
     public void addHexagonTreeJ1(ComponentInterface hexagon) {
@@ -31,7 +47,7 @@ public class Logic {
 
     }
 
-    public void verificationPredecessor(ComponentInterface hegagonV, int indicadorJugador) {
+    public static void verificationPredecessor(ComponentInterface hegagonV, int indicadorJugador) {
 
         ArrayList<ComponentInterface> listCabezasVerification = new ArrayList<ComponentInterface>();
         Hexagon hexagonVerification = (Hexagon) hegagonV;
@@ -162,113 +178,6 @@ public class Logic {
                     }
                 }
 
-            }
-
-        }
-
-    }
-
-    public void updateTree(int indicadorJugador) {
-
-        ArrayList<ComponentInterface> listHexagonsVerification = new ArrayList<ComponentInterface>();
-
-        if (indicadorJugador == 1) {
-
-            listHexagonsVerification = listHexagonsJ1;
-        } else {
-
-            listHexagonsVerification = listHexagonsJ2;
-        }
-
-        if (!listHexagonsVerification.isEmpty()) {
-
-            boolean continuarBusqueda = true;
-            Hexagon hexagon = null;
-
-            while (continuarBusqueda) {
-
-                continuarBusqueda = false;
-                for (int i = 0; i < listHexagonsVerification.size(); i++) {
-
-                    hexagon = (Hexagon) listHexagonsVerification.get(i);
-                    verificationPredecessor(hexagon, indicadorJugador);
-
-                    if (hexagon.isHasPredecessor()) {
-                        listHexagonsVerification.remove(hexagon);
-                        continuarBusqueda = true;
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    public void verifyWinPlayer(int indicadorJugador) {
-
-        updateTree(indicadorJugador);
-
-        ArrayList<ComponentInterface> listCabezasVerification = new ArrayList<ComponentInterface>();
-
-        if (indicadorJugador == 1) {
-
-            listCabezasVerification = listHexagonsCabezasJ1;
-        } else {
-
-            listCabezasVerification = listHexagonsCabezasJ2;
-        }
-
-        String infoPredecessor = "";
-        String indiceString = "";
-        Hexagon hexagonActual = null;
-        String vec[] = null;
-        int indice = 0;
-        boolean cumple = true;
-        boolean verificationWin = false;
-
-        for (int k = 0; k < listCabezasVerification.size(); k++) {
-
-            cumple = true;
-            indice = 0;
-            hexagonActual = (Hexagon) listCabezasVerification.get(k);
-
-            if (indicadorJugador == 1) {
-                infoPredecessor = hexagonActual.listLocationX();
-            } else {
-                infoPredecessor = hexagonActual.listLocationY();
-            }
-
-            vec = infoPredecessor.split(",");
-            while (cumple) {
-
-                cumple = false;
-                indiceString = indice + "";
-                for (int i = 0; i < vec.length; i++) {
-
-                    if (vec[i].equals(indiceString)) {
-                        cumple = true;
-                        i = vec.length;
-
-                        if (indice == 6) {
-
-                            verificationWin = true;
-                            cumple = false;
-                        }
-                    }
-
-                }
-                indice++;
-            }
-
-            if (verificationWin) {
-
-                if (indicadorJugador == 1) {
-                    JOptionPane.showMessageDialog(null, "Gano el rojo");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Gano el azul");
-                }
-
-                k = listCabezasVerification.size();
             }
 
         }
