@@ -104,15 +104,16 @@ public class Tablero extends javax.swing.JFrame {
                             clickedButton.changeColor(1);
                             indiceJugadorVerification = indicadorJugador;
                             logic.addHexagonTreeJ1(hexagon);
-                            ++indicadorJugador;
-
-                        } else if (indicadorJugador == 2) {
-                            clickedButton.changeColor(2);
-                            indiceJugadorVerification = indicadorJugador;
-                            logic.addHexagonTreeJ2(hexagon);
-                            --indicadorJugador;
+                            //++indicadorJugador;
 
                         }
+//                        else if (indicadorJugador == 2) {
+//                            clickedButton.changeColor(2);
+//                            indiceJugadorVerification = indicadorJugador;
+//                            logic.addHexagonTreeJ2(hexagon);
+//                            --indicadorJugador;
+//
+//                        }
 
                         ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
                         repaint();
@@ -121,7 +122,23 @@ public class Tablero extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    public void deshabilitar(){
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                buttons[i][j].setEnabled(false);
+            }
+        }
+    }
+    
+     public void habilitar(){
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                buttons[i][j].setEnabled(true);
+            }
+        }
+    }
+    
     private void boardCreation(int size) {
         int xStandard = 63;
         int x = 40;

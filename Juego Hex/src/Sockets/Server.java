@@ -32,8 +32,8 @@ public class Server {
         try {
 //            Ingresar.setWaitingConnection(true);
 //            Registro.setWaitingConnection(true);
-            this.principal = new VentanaPrincipal();
-            principal.setVisible(true);
+//            this.principal = new VentanaPrincipal();
+//            principal.setVisible(true);
             server = new ServerSocket(PORT);
 //            while (true) {
 //                if (!ingresar && !registro) {

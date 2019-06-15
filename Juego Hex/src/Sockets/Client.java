@@ -42,6 +42,7 @@ public class Client {
             getStreams();
 //            Ingresar.setWaitingConnection(false);
 //            Registro.setWaitingConnection(false);
+            tablero.deshabilitar();
             while (continuar) {
                 recibir();
             }
@@ -57,6 +58,7 @@ public class Client {
     public synchronized void enviar(Hexagon hexa) throws IOException, ClassNotFoundException {
         output.writeObject(hexa);
         //output.writeBoolean(continuar);no se cooo mandarlo
+        tablero.deshabilitar();
     }
 
     private void recibir() throws IOException, ClassNotFoundException {
@@ -64,17 +66,17 @@ public class Client {
 //        Registro.setWaitingConnection(false);
         Hexagon hexa = (Hexagon) input.readObject();
         tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
-
+        tablero.habilitar();
     }
 
     private void connectToServer() throws IOException {
         System.out.println("Attempting connection\n");
-        Ingresar.setWaitingConnection(false);
-        Registro.setWaitingConnection(false);
+//        Ingresar.setWaitingConnection(false);
+//        Registro.setWaitingConnection(false);
         client = new Socket(HOST, PORT);
         System.out.println("Connected to: " + client.getInetAddress().getHostName());
-        mainWindow = new VentanaPrincipal();
-        mainWindow.setVisible(true);
+//        mainWindow = new VentanaPrincipal();
+//        mainWindow.setVisible(true);
         tablero=new Tablero2(7,this);
         tablero.setVisible(true);
     }

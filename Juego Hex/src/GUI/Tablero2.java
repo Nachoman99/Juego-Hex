@@ -22,7 +22,7 @@ import java.io.IOException;
 public class Tablero2 extends javax.swing.JFrame {
 
     private HexagonalButton[][] buttons;
-    private int indicadorJugador = 1;
+    private int indicadorJugador = 2;
     private int tamaño;
     Logic logic;
     private Punto puntoActualizar;
@@ -37,7 +37,7 @@ public class Tablero2 extends javax.swing.JFrame {
         this.client = client;
         logic = new Logic();
         this.tamaño = tamaño;
-        ObserverWinner.getInstance().setTamanio(this.tamaño);
+//        ObserverWinner.getInstance().setTamanio(this.tamaño);
         setResizable(false);
         if (tamaño == 7) {
             setBounds(0, 0, 700, 500);
@@ -97,18 +97,19 @@ public class Tablero2 extends javax.swing.JFrame {
                         } catch (ClassNotFoundException o) {
                             o.printStackTrace();
                         }
-
-                        if (indicadorJugador == 1) {
-                            clickedButton.changeColor(1);
-//                            indiceJugadorVerification = indicadorJugador;
-//                            logic.addHexagonTreeJ1(hexagon);
-                            ++indicadorJugador;
-
-                        } else if (indicadorJugador == 2) {
+                        
+//                        if (indicadorJugador == 1) {
+//                            clickedButton.changeColor(1);
+////                            indiceJugadorVerification = indicadorJugador;
+////                            logic.addHexagonTreeJ1(hexagon);
+//                            ++indicadorJugador;
+//
+//                        } else 
+                            if (indicadorJugador == 2) {
                             clickedButton.changeColor(2);
 //                            indiceJugadorVerification = indicadorJugador;
 //                            logic.addHexagonTreeJ2(hexagon);
-                            --indicadorJugador;
+                            //--indicadorJugador;
 
                         }
 
@@ -120,6 +121,22 @@ public class Tablero2 extends javax.swing.JFrame {
         }
     }
 
+     public void deshabilitar(){
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                buttons[i][j].setEnabled(false);
+            }
+        }
+    }
+    
+     public void habilitar(){
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                buttons[i][j].setEnabled(true);
+            }
+        }
+    }
+    
     private void boardCreation(int size) {
         int xStandard = 63;
         int x = 40;
