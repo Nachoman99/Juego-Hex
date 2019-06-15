@@ -34,8 +34,8 @@ public class LogicThread extends Thread {
     @Override
     public void run() {
         try {
-            Ingresar.setWaitingConnection(true);
-            Registro.setWaitingConnection(true);
+            Ingresar.setWaitingConnection(false);
+            Registro.setWaitingConnection(false);
             getStreams();
             mostrarTablero();
             while (continuar) {

@@ -55,8 +55,8 @@ public class Server {
 
     private void waitForConnection() throws IOException {
         System.out.println("Waiting for connection...\n");
-        Ingresar.setWaitingConnection(true);
-        Registro.setWaitingConnection(true);
+        Ingresar.setWaitingConnection(false);
+        Registro.setWaitingConnection(false);
         connection = server.accept();
         System.out.println("Connection received from: " + connection.getInetAddress().getHostName());
 

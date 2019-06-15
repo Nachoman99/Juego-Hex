@@ -69,14 +69,14 @@ public class Client {
 
     private void connectToServer() throws IOException {
         System.out.println("Attempting connection\n");
-        Ingresar.setWaitingConnection(true);
-        Registro.setWaitingConnection(true);
+        Ingresar.setWaitingConnection(false);
+        Registro.setWaitingConnection(false);
         client = new Socket(HOST, PORT);
         System.out.println("Connected to: " + client.getInetAddress().getHostName());
         mainWindow = new VentanaPrincipal();
         mainWindow.setVisible(true);
-//        tablero=new Tablero2(7,this);
-//        tablero.setVisible(true);
+        tablero=new Tablero2(7,this);
+        tablero.setVisible(true);
     }
 
     private void getStreams() throws IOException {
