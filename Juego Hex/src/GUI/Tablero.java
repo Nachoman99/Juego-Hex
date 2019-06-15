@@ -122,8 +122,8 @@ public class Tablero extends javax.swing.JFrame {
                         hexagonoActualizar = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
 
                         try {
-                            connector.enviar(hexagonoActualizar);
-                            connector.enviarJugadorWin(ObserverWinner.getInstance().verifyFinishWin());
+                            connector.enviar(hexagonoActualizar, ObserverWinner.getInstance().verifyFinishWin());
+                            //connector.enviarJugadorWin(ObserverWinner.getInstance().verifyFinishWin());
                         } catch (IOException p) {
                             p.printStackTrace();
                         } catch (ClassNotFoundException o) {

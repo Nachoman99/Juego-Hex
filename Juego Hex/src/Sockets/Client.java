@@ -65,11 +65,8 @@ public class Client {
     private void recibir() throws IOException, ClassNotFoundException {
 //        Ingresar.setWaitingConnection(false);
 //        Registro.setWaitingConnection(false);
-        Hexagon hexa = (Hexagon) input.readObject();
-        //JOptionPane.showMessageDialog(null, hexa);
-        tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
         int jugadorWin = input.readInt();
-        //JOptionPane.showMessageDialog(null, jugadorWin);
+        
         if (jugadorWin != 0) {
 
             if (jugadorWin == 1) {
@@ -79,6 +76,11 @@ public class Client {
             }
 
         }
+        Hexagon hexa = (Hexagon) input.readObject();
+        //JOptionPane.showMessageDialog(null, hexa);
+        tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
+
+        //JOptionPane.showMessageDialog(null, jugadorWin);
         tablero.habilitar();
     }
 

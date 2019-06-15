@@ -58,17 +58,18 @@ public class LogicThread extends Thread {
         Registro.setWaitingConnection(false);
     }
 
-    public synchronized void enviar(Hexagon hexa) throws IOException, ClassNotFoundException {
+    public synchronized void enviar(Hexagon hexa, int jugadorWin) throws IOException, ClassNotFoundException {
+        output.writeInt(jugadorWin);
         output.writeObject(hexa);
         //output.writeBoolean(continuar);no se como mandarlo
         tablero.deshabilitar();
     }
-
-    public synchronized void enviarJugadorWin(int jugadorWin) throws IOException, ClassNotFoundException {
-        output.writeInt(jugadorWin);
-        //output.writeBoolean(continuar);no se como mandarlo
-        //tablero.deshabilitar();
-    }
+//
+//    public synchronized void enviarJugadorWin(int jugadorWin) throws IOException, ClassNotFoundException {
+//        output.writeInt(jugadorWin);
+//        //output.writeBoolean(continuar);no se como mandarlo
+//        //tablero.deshabilitar();
+//    }
 
     private void recibir() throws IOException, ClassNotFoundException {
         Hexagon hexa = (Hexagon) input.readObject();
