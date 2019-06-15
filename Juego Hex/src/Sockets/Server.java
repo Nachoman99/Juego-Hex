@@ -30,6 +30,8 @@ public class Server {
 
     public void runServer() {
         try {
+//            Ingresar.setWaitingConnection(true);
+//            Registro.setWaitingConnection(true);
             this.principal = new VentanaPrincipal();
             principal.setVisible(true);
             server = new ServerSocket(PORT);

@@ -23,20 +23,21 @@ public class LogicThread extends Thread {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Tablero tablero;
-    private boolean continuar=true;
-    
+    private boolean continuar = true;
+
     public LogicThread(Socket connection) {
         this.connection = connection;
-        this.tablero = new Tablero(7,this);
-        this.tablero.setVisible(true);
+//        this.tablero = new Tablero(7,this);
+//        this.tablero.setVisible(true);
     }
 
     @Override
     public void run() {
         try {
+            Ingresar.setWaitingConnection(true);
+            Registro.setWaitingConnection(true);
             getStreams();
-            Ingresar.setWaitingConnection(false);
-            Registro.setWaitingConnection(false);
+            mostrarTablero();
             while (continuar) {
                 recibir();
             }
@@ -53,17 +54,26 @@ public class LogicThread extends Thread {
         output = new ObjectOutputStream(connection.getOutputStream());
         output.flush();
         input = new ObjectInputStream(connection.getInputStream());
+        Ingresar.setWaitingConnection(false);
+        Registro.setWaitingConnection(false);
     }
-        
-    public synchronized void enviar(Hexagon hexa)throws IOException, ClassNotFoundException {
+
+    public synchronized void enviar(Hexagon hexa) throws IOException, ClassNotFoundException {
         output.writeObject(hexa);
         //output.writeBoolean(continuar);no se como mandarlo
     }
-    
+
     private void recibir() throws IOException, ClassNotFoundException {
         Hexagon hexa = (Hexagon) input.readObject();
         tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
-     
+
+    }
+
+    private void mostrarTablero() {
+        if (!Ingresar.isWaitingConnection() || !Registro.isWaitingConnection()) {
+            tablero = new Tablero(7, this);
+            tablero.setVisible(true);
+        }
     }
 
     private void closeConnection() {

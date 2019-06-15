@@ -23,7 +23,7 @@ public class Ingresar extends javax.swing.JDialog {
     private static boolean iniciarEspera;
     ManejoProperties prop = new ManejoProperties();
     private static boolean waitingConnection = false;
-    private WaitConnection wait = new WaitConnection(null, true);
+    private static WaitConnection wait = new WaitConnection(null, true);
 //    private int sizeGame;
 
     /**
@@ -171,6 +171,16 @@ public class Ingresar extends javax.swing.JDialog {
 
     public static void setWaitingConnection(boolean waitingConnection) {
         Ingresar.waitingConnection = waitingConnection;
+    }
+    
+    public static void windowWait(boolean window){
+        if (window) {
+            wait.setVisible(true);
+            waitingConnection = true;
+        } else {
+            waitingConnection = false;
+            wait.setVisible(false);
+        }
     }
     
 //    private void sizeTablero() {

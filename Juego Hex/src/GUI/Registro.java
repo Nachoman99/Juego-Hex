@@ -33,7 +33,7 @@ public class Registro extends javax.swing.JDialog {
     ManejoProperties prop = new ManejoProperties();
     boolean ID = false;
     boolean password = false;
-    private WaitConnection wait = new WaitConnection(null, true);
+    private static WaitConnection wait = new WaitConnection(null, true);
 
     //private int sizeGame;
     /**
@@ -224,6 +224,16 @@ public class Registro extends javax.swing.JDialog {
             ID = true;
         } else {
             ID = false;
+        }
+    }
+    
+    public static void windowWait(boolean window){
+        if (window) {
+            wait.setVisible(true);
+            waitingConnection = true;
+        } else {
+            waitingConnection = false;
+            wait.setVisible(false);
         }
     }
 
