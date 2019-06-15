@@ -14,6 +14,9 @@ import estructura.ObserverWinner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,11 +60,9 @@ public class Tablero extends javax.swing.JFrame {
         initializerActions(tamaño + 2);
     }
 
-    
-
     public void updateButtons(int indicadorJugador, int x, int y) {
-         int indiceJugadorVerification = 0;
-        buttons[(x+1)][(y+1)].changeColor(indicadorJugador);
+        int indiceJugadorVerification = 0;
+        buttons[(x + 1)][(y + 1)].changeColor(indicadorJugador);
         Hexagon hexagon = new Hexagon(indicadorJugador, x, y);
         logic.verificationPredecessor(hexagon, indicadorJugador);
         if (indicadorJugador == 1) {
@@ -76,6 +77,18 @@ public class Tablero extends javax.swing.JFrame {
 
         }
         ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
+
+        if (ObserverWinner.getInstance().verifyFinishWin() != 0) {
+
+            if (ObserverWinner.getInstance().verifyFinishWin() == 1) {
+
+                JOptionPane.showMessageDialog(null, "Gano el jugador 1");
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Gano el jugador 2");
+            }
+        }
+
         repaint();
     }
 
@@ -89,16 +102,6 @@ public class Tablero extends javax.swing.JFrame {
                         HexagonalButton clickedButton = (HexagonalButton) e.getSource();
                         Hexagon hexagon = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
                         logic.verificationPredecessor(hexagon, indicadorJugador);
-
-                        hexagonoActualizar = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
-
-                        try {
-                            connector.enviar(hexagonoActualizar);
-                        } catch (IOException p) {
-                            p.printStackTrace();
-                        } catch (ClassNotFoundException o) {
-                            o.printStackTrace();
-                        }
 
                         if (indicadorJugador == 1) {
                             clickedButton.changeColor(1);
@@ -116,29 +119,50 @@ public class Tablero extends javax.swing.JFrame {
 //                        }
 
                         ObserverWinner.getInstance().verifyWinPlayer(indiceJugadorVerification);
+                        hexagonoActualizar = new Hexagon(indicadorJugador, clickedButton.getRow(), clickedButton.getCol());
+
+                        try {
+                            connector.enviar(hexagonoActualizar);
+                            connector.enviarJugadorWin(ObserverWinner.getInstance().verifyFinishWin());
+                        } catch (IOException p) {
+                            p.printStackTrace();
+                        } catch (ClassNotFoundException o) {
+                            o.printStackTrace();
+                        }
+
+                        if (ObserverWinner.getInstance().verifyFinishWin() != 0) {
+
+                            if (ObserverWinner.getInstance().verifyFinishWin() == 1) {
+
+                                JOptionPane.showMessageDialog(null, "Gano el jugador 1");
+                            } else {
+
+                                JOptionPane.showMessageDialog(null, "Gano el jugador 2");
+                            }
+                        }
                         repaint();
                     }
                 });
             }
         }
     }
-    
-    public void deshabilitar(){
+
+    public void deshabilitar() {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 buttons[i][j].setEnabled(false);
             }
         }
     }
-    
-     public void habilitar(){
+
+    public void habilitar() {
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 buttons[i][j].setEnabled(true);
             }
         }
     }
-    
+
     private void boardCreation(int size) {
         int xStandard = 63;
         int x = 40;

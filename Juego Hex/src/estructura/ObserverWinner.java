@@ -13,6 +13,7 @@ public class ObserverWinner {
 
     private static ObserverWinner instanceobserver = new ObserverWinner();
     private int tamanio = 0;
+    private int jugadorWin = 0;
 
     private ObserverWinner() {
     }
@@ -45,7 +46,6 @@ public class ObserverWinner {
         String vec[] = null;
         int indice = 0;
         boolean cumple = true;
-        boolean verificationWin = false;
 
         for (int k = 0; k < listCabezasVerification.size(); k++) {
 
@@ -72,7 +72,7 @@ public class ObserverWinner {
 
                         if (indice == tamanio) {
 
-                            verificationWin = true;
+                            jugadorWin = indicadorJugador;
                             cumple = false;
                         }
                     }
@@ -81,18 +81,12 @@ public class ObserverWinner {
                 indice++;
             }
 
-            if (verificationWin) {
-
-                if (indicadorJugador == 1) {
-                    JOptionPane.showMessageDialog(null, "Gano el Jugador 1");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Gano el Jugador 2");
-                }
-
-                k = listCabezasVerification.size();
-            }
-
         }
+    }
+
+    public int verifyFinishWin() {
+
+        return jugadorWin;
     }
 
     private void updateTree(int indicadorJugador) {

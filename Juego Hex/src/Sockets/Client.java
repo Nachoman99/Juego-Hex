@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -65,7 +66,19 @@ public class Client {
 //        Ingresar.setWaitingConnection(false);
 //        Registro.setWaitingConnection(false);
         Hexagon hexa = (Hexagon) input.readObject();
+        //JOptionPane.showMessageDialog(null, hexa);
         tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
+        int jugadorWin = input.readInt();
+        //JOptionPane.showMessageDialog(null, jugadorWin);
+        if (jugadorWin != 0) {
+
+            if (jugadorWin == 1) {
+                JOptionPane.showMessageDialog(null, "Gano Jugador 1");
+            } else {
+                JOptionPane.showMessageDialog(null, "Gano Jugador 2");
+            }
+
+        }
         tablero.habilitar();
     }
 
@@ -77,7 +90,7 @@ public class Client {
         System.out.println("Connected to: " + client.getInetAddress().getHostName());
 //        mainWindow = new VentanaPrincipal();
 //        mainWindow.setVisible(true);
-        tablero=new Tablero2(7,this);
+        tablero = new Tablero2(7, this);
         tablero.setVisible(true);
     }
 

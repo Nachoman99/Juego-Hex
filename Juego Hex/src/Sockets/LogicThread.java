@@ -64,6 +64,12 @@ public class LogicThread extends Thread {
         tablero.deshabilitar();
     }
 
+    public synchronized void enviarJugadorWin(int jugadorWin) throws IOException, ClassNotFoundException {
+        output.writeInt(jugadorWin);
+        //output.writeBoolean(continuar);no se como mandarlo
+        //tablero.deshabilitar();
+    }
+
     private void recibir() throws IOException, ClassNotFoundException {
         Hexagon hexa = (Hexagon) input.readObject();
         tablero.updateButtons(hexa.getPlayer(), hexa.getLocation().getX(), hexa.getLocation().getY());
